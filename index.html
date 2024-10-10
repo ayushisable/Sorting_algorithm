@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="body">
+        <div class="main">
+          <h1>Sorting Visualizer</h1>
+
+        <div class="footer">
+          <select id="sortAlgorithm">
+            <option value="bubble">Bubble Sort</option>
+            <option value="selection">Selection Sort</option>
+            <option value="insertion">Insertion sort</option>
+            <option value="merge">Merge sort</option>
+            <option value="quick">Quick sort</option>
+          </select>
+          <select id="arraysize">
+            <option value="10">Array Size</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+          </select>
+          
+          <!-- Buttons to Randomize and Sort -->
+          <button id="button1">Randomize Array</button>
+          <button id="button2">Sort Array</button>
+          
+        </div>
+          <!-- Container for the bars -->
+          <div class="array"></div>
+          <div class="timecom"></div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
