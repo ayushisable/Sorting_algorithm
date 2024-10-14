@@ -5,6 +5,7 @@
   const algorithmSelector = document.getElementById("sortAlgorithm");
   const arraySize = document.getElementById("arraysize");
   const timeComplexity = document.querySelector(".timecom");
+  let functionRun = true;
   // Function to draw the array
   function drawArray(){
     arraycontainer.innerHTML = ''; // Clear previous bars
@@ -54,9 +55,9 @@
   `;
   }
 
-
   // Bubble Sort algorithm with animation
   async function bubbleSort(){
+    functionRun =false;
     complexitybubbIn();
     const bars = document.querySelectorAll('.bar');
     for(let i = 0; i < array.length; i++) {
@@ -93,10 +94,12 @@
       bars[i].style.backgroundColor ='teal';
     }
     false;
+    functionRun = true ;
   }
 
   // Selection Sort algorithm with animation
   async function selectionSort(){
+    functionRun =false;
     complexitySelection();
     const bars = document.querySelectorAll('.bar');
     for (let i = 0; i < array.length; i++) {
@@ -132,9 +135,11 @@
       await new Promise(resolve => setTimeout(resolve, 100));
       bars[i].style.backgroundColor ='teal';
     }
+    functionRun = true;
   }
   // Insertion sort
   async function insertionSort() {
+    functionRun =false;
     complexitybubbIn();
     const bars = document.querySelectorAll('.bar');
     
@@ -177,11 +182,13 @@
       await new Promise(resolve => setTimeout(resolve, 200));
       bars[i].style.backgroundColor = 'teal';
     }
+    functionRun = true;
 }
 
 
  // merge sort
   async function mergeSort(array, start = 0, end = array.length - 1) {
+    functionRun =false;
     complexityMerge();
     if (start >= end) {
       return;
@@ -193,6 +200,8 @@
     await mergeSort(array, middle + 1, end); // Sort the right half
 
     await merge(array, start, middle, end); // Merge the two halves
+    functionRun =true;
+    
   }
 
    // Merge helper function with animation
@@ -203,8 +212,8 @@
     let i = 0, j = 0, k = start;
 
     while (i < left.length && j < right.length) {
-      bars[k].style.backgroundColor = 'red'; // Highlight current element in main array
-      await new Promise(resolve => setTimeout(resolve, 500));
+      bars[k].style.backgroundColor = '#FF5733'; // Highlight current element in main array
+      await new Promise(resolve => setTimeout(resolve, 350));
 
       if (left[i] <= right[j]) {
         array[k] = left[i];
@@ -216,42 +225,40 @@
         j++;
       }
 
-      bars[k].style.backgroundColor = 'teal'; // Reset the color
+      bars[k].style.backgroundColor = '#33C4FF'; // Reset the color
       k++;
     }
 
     // Copy remaining elements from left array
     while (i < left.length) {
-      bars[k].style.backgroundColor = 'red';
-      await new Promise(resolve => setTimeout(resolve, 500));
+      bars[k].style.backgroundColor = '#FF5733';
+      await new Promise(resolve => setTimeout(resolve, 350));
 
       array[k] = left[i];
       bars[k].style.height = `${array[k]}px`;
-      bars[k].style.backgroundColor = 'teal'; // Reset the color
+      bars[k].style.backgroundColor = '#32CD32'; // Reset the color
       i++;
       k++;
     }
 
     // Copy remaining elements from right array
     while (j < right.length) {
-      bars[k].style.backgroundColor = 'red';
-      await new Promise(resolve => setTimeout(resolve, 500));
+      bars[k].style.backgroundColor = '#FF5733';
+      await new Promise(resolve => setTimeout(resolve, 350));
 
       array[k] = right[j];
       bars[k].style.height = `${array[k]}px`;
-      bars[k].style.backgroundColor = 'teal'; // Reset the color
+      bars[k].style.backgroundColor = '#33C4FF'; // Reset the color
       j++;
       k++;
     }
     
-    for(let i=0;i<array.length;i++){
-      await new Promise(resolve => setTimeout(resolve, 200));
-      bars[i].style.backgroundColor = 'teal';
-    }
   }
+    
 
  // Quick Sort algorithm with animation
 async function quickSort(arr, left = 0, right = arr.length - 1) {
+  functionRun =false;
   complexityQuick();
   // Base case: If left index is greater than or equal to right, the subarray is sorted
   if (left >= right) return;
@@ -265,7 +272,7 @@ async function quickSort(arr, left = 0, right = arr.length - 1) {
   // Recursively sort the right part (elements greater than the pivot)
   await quickSort(arr, pivotIndex + 1, right);
 
-  
+  functionRun =true;
 }
 
 // Partition function with animation and explanation
@@ -284,7 +291,7 @@ async function partition(arr, left, right) {
     bars[j].style.backgroundColor = 'orange';
     bars[right].style.backgroundColor = 'red';
     
-    await new Promise(resolve => setTimeout(resolve, 400));
+    await new Promise(resolve => setTimeout(resolve, 300));
 
     // If the current element (arr[j]) is smaller than the pivot, it's time to swap
     if (arr[j] < pivot) {
@@ -315,7 +322,7 @@ async function partition(arr, left, right) {
   bars[i + 1].style.backgroundColor = 'green';
 
   // Add a short delay so users can visually see the swap
-  await new Promise(resolve => setTimeout(resolve, 400));
+  await new Promise(resolve => setTimeout(resolve, 300));
 
   // Return the index where the pivot was placed
   return i + 1;
@@ -339,6 +346,7 @@ arraySize.addEventListener("change", () => {
 // Event listener for the random button (only for randomizing the array's values, not size)
 buttonRan.addEventListener("click", () => {
   // Randomize the values in the array without changing its size
+  functionRun =true;
   array = Array.from({ length: arrlength }, () => Math.floor(Math.random() * 250));  // Generate a new random array based on arrlength
   drawArray();  // Redraw the array with new values
 });
@@ -348,19 +356,19 @@ buttonRan.addEventListener("click", () => {
     const selectedAlgorithm = algorithmSelector.value;
     console.log(selectedAlgorithm);
     console.log(algorithmSelector.value);
-    if (selectedAlgorithm === "bubble") {
+    if (selectedAlgorithm === "bubble"&&functionRun===true) {
       await bubbleSort(); // Call Bubble Sort
       //await complexitybubbIn();
-    } else if (selectedAlgorithm === "selection") {
+    } else if (selectedAlgorithm === "selection"&&functionRun===true) {
       await selectionSort(); // Call Selection Sort
       //complexitySelection();
-    } else if(selectedAlgorithm ==="insertion"){
+    } else if(selectedAlgorithm ==="insertion"&&functionRun===true){
       await insertionSort();
       //complexitybubbIn
-  } else if(selectedAlgorithm ==="merge"){
+  } else if(selectedAlgorithm ==="merge"&&functionRun===true){
     await mergeSort(array);
     //complexityMerge();
-  } else if(selectedAlgorithm ==="quick"){
+  } else if(selectedAlgorithm ==="quick"&&functionRun===true){
     await quickSort(array);
     //complexityQuick();
   }
